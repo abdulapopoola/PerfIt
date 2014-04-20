@@ -1,12 +1,37 @@
 'use strict';
+//TODO: expose default maxRunValue and stepValue
 
-var perfIt = function() {
-    var code = $('#codebox').val();
-    var start = +new Date();  // log start timestamp
-    eval(code);
-    var end = +new Date();  // log end timestamp
+var perfIt = function(codeToRun, repeatCount) {
+    var start = +new Date();
+    for (var i = 0; i < repeatCount; i++) {
+        eval(codeToRun);
+    }
+    var end = +new Date();
     var diff = end - start;
-    console.log(diff);
+    return diff;
 };
 
-$('#perf').on('click', perfIt);
+var timeIt = function(codeToRun, maxRunValue, runIncrement) {
+    //TODO: Add error checking - values less than stepValue, maxRunCount etc
+    var results = {},
+            maxRunCount = maxRunValue || 1000000,
+            stepValue = runIncrement || 10,
+            runTime = 0,
+            runCount = 10;
+
+    while (runCount <= maxRunCount) {
+        runTime = perfIt(codeToRun, runCount);
+        results[runCount] = runTime;
+        runCount *= stepValue;
+    }
+
+    return results;
+};
+
+$('#perf').on('click', function(e) {
+    console.log('starting');
+    var code = $('#codebox').val(),
+        xx = timeIt(code);
+        
+    console.log('Result',xx);
+});
