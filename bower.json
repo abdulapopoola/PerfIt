@@ -2,9 +2,9 @@
   "name": "perfit",
   "private": true,
   "dependencies": {
-    "sass-bootstrap": "~3.0.0",
+    "bootstrap": "~3.0.3",
     "modernizr": "~2.6.2",
-    "jquery": "~1.10.2"
+    "jquery": "~1.11.0"
   },
   "devDependencies": {}
 }
