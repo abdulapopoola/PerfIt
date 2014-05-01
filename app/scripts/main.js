@@ -14,7 +14,7 @@ var perfIt = function(codeToRun, repeatCount) {
 var timeIt = function(codeToRun, maxRunValue, runIncrement) {
     //TODO: Add error checking - values less than stepValue, maxRunCount etc
     var results = {},
-            maxRunCount = maxRunValue || 1000000,
+            maxRunCount = maxRunValue || 1000,
             stepValue = runIncrement || 10,
             runTime = 0,
             runCount = 10;
@@ -28,10 +28,15 @@ var timeIt = function(codeToRun, maxRunValue, runIncrement) {
     return results;
 };
 
+var plotIt = function() {
+
+};
+
+
 $('#perf').on('click', function(e) {
     console.log('starting');
     var code = $('#codebox').val(),
-        xx = timeIt(code);
-        
-    console.log('Result',xx);
+            xx = timeIt(code);
+
+    console.log('Result', xx);
 });

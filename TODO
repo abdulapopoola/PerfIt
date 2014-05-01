@@ -1,3 +1,5 @@
 Add code editor to text field
 
 Check the treemap for layout, check these charts: spline chart, line chart, scatter chart for perf plots
+
+Each function is a candidate to be split out
