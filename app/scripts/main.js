@@ -1,5 +1,6 @@
 'use strict';
 //TODO: expose default maxRunValue and stepValue
+var svgHeight = 100;
 
 var perfIt = function(codeToRun, repeatCount) {
     var start = +new Date();
@@ -13,7 +14,7 @@ var perfIt = function(codeToRun, repeatCount) {
 
 var timeIt = function(codeToRun, maxRunValue, runIncrement) {
     //TODO: Add error checking - values less than stepValue, maxRunCount etc
-    var results = {},
+    var results = [],
             maxRunCount = maxRunValue || 1000,
             stepValue = runIncrement || 10,
             runTime = 0,
@@ -21,22 +22,43 @@ var timeIt = function(codeToRun, maxRunValue, runIncrement) {
 
     while (runCount <= maxRunCount) {
         runTime = perfIt(codeToRun, runCount);
-        results[runCount] = runTime;
+        results.push({
+            'runCount': runCount,
+            'runTime': runTime
+        });
         runCount *= stepValue;
     }
 
     return results;
 };
 
-var plotIt = function() {
+var lineFun = d3.svg.line()
+        .x(function(runInfo) {
+            return runInfo.runCount;
+        })
+        .y(function(runInfo) {
+            return svgHeight - runInfo.runTime;
+        })
+        .interpolate('linear');
 
+//TODO; Plot config should be passed in; same applies to svg dom element selector
+var plotIt = function(plotData) {
+    var plotArea = d3.select('#plotArea');
+
+    plotArea.append('path')
+            .attr({
+                d: lineFun(plotData),
+                'stroke': 'purple',
+                'stroke-width': 2,
+                'fill': 'none'
+            });
 };
-
 
 $('#perf').on('click', function(e) {
     console.log('starting');
     var code = $('#codebox').val(),
-            xx = timeIt(code);
+            graphData = timeIt(code);
 
-    console.log('Result', xx);
+    console.log('Result', graphData);
+    plotIt(graphData);
 });
