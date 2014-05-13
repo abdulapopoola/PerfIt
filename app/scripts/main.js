@@ -56,6 +56,15 @@ var plotIt = function(plotData) {
             });
 };
 
+var setupCodeMirror = function() {
+    var configOptions = {
+        mode: "javascript",
+        lineNumbers: true,
+        value: "function myScript(){return 100;}\n"
+    },
+    myCodeMirror = CodeMirror.fromTextArea(d3.select('#codebox')[0][0], configOptions);
+};
+
 $('#perf').on('click', function(e) {
     console.log('starting');
     var code = $('#codebox').val(),
