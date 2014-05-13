@@ -32,6 +32,8 @@ var timeIt = function(codeToRun, maxRunValue, runIncrement) {
     return results;
 };
 
+//TODO: Eliminate all svgHeight; find a way to pass it in properly
+// Create hidden div to serve as container for svg icon and chart
 var lineFun = d3.svg.line()
         .x(function(runInfo) {
             return runInfo.runCount;
