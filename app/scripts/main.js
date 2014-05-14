@@ -3,11 +3,11 @@
 var svgHeight = 100;
 
 var perfIt = function(codeToRun, repeatCount) {
-    var start = +new Date();
+    var start = window.performance.now();
     for (var i = 0; i < repeatCount; i++) {
         eval(codeToRun);
     }
-    var end = +new Date();
+    var end = window.performance.now();
     var diff = end - start;
     return diff;
 };
@@ -58,18 +58,26 @@ var plotIt = function(plotData) {
 
 var setupCodeMirror = function() {
     var configOptions = {
-        mode: "javascript",
+        value: "function myScript(){return 100;}\n",
         lineNumbers: true,
-        value: "function myScript(){return 100;}\n"
+        matchBrackets: true,
+        mode: "javascript",
+        theme: "cobalt"
     },
-    myCodeMirror = CodeMirror.fromTextArea(d3.select('#codebox')[0][0], configOptions);
+    myCodeMirror = CodeMirror.fromTextArea(document.getElementById('codebox'), configOptions);
+    myCodeMirror.setSize("100%", 300);
+    return myCodeMirror;
 };
 
-$('#perf').on('click', function(e) {
-    console.log('starting');
-    var code = $('#codebox').val(),
-            graphData = timeIt(code);
+$(function() {
+    var codebox = setupCodeMirror();
 
-    console.log('Result', graphData);
-    plotIt(graphData);
+    $('#perf').on('click', function(e) {
+        console.log('starting');
+        var code = codebox.getValue(),
+                graphData = timeIt(code);
+
+        console.log('Result', graphData);
+        plotIt(graphData);
+    });
 });
