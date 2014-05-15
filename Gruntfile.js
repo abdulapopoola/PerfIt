@@ -1,4 +1,4 @@
-// Generated on 2014-04-29 using generator-webapp 0.4.9
+// Generated on 2014-05-15 using generator-webapp 0.4.9
 'use strict';
 
 // # Globbing
@@ -124,10 +124,7 @@ module.exports = function (grunt) {
         jshint: {
             options: {
                 jshintrc: '.jshintrc',
-                reporter: require('jshint-stylish'),
-                ignores: [
-                    '<%= config.app %>/scripts/d3/{,*/}*.js'
-                ]
+                reporter: require('jshint-stylish')
             },
             all: [
                 'Gruntfile.js',

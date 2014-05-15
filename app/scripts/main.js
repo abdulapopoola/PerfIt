@@ -69,13 +69,23 @@ var setupCodeMirror = function() {
     return myCodeMirror;
 };
 
+var codeWrapper = function(code, args) {
+    //wraps code in an IIFE
+    return "(" + code + ")"
+            + "(" + args + ")";
+}
+
 $(function() {
     var codebox = setupCodeMirror();
 
     $('#perf').on('click', function(e) {
         console.log('starting');
         var code = codebox.getValue(),
-                graphData = timeIt(code);
+                wrappedCode,
+                graphData;
+
+        wrappedCode = codeWrapper(code, "");
+        graphData = timeIt(code);
 
         console.log('Result', graphData);
         plotIt(graphData);
