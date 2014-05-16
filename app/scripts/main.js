@@ -75,7 +75,7 @@ var codeWrapper = function(code, args) {
             + "(" + args + ")";
 }
 
-$(function() {
+window.onload = function() {
     var codebox = setupCodeMirror();
 
     $('#perf').on('click', function(e) {
@@ -90,4 +90,4 @@ $(function() {
         console.log('Result', graphData);
         plotIt(graphData);
     });
-});
+};

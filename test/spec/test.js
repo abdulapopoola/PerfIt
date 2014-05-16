@@ -2,16 +2,15 @@
 
 (function() {
     'use strict';
-
     //Test the PerfIt function; pass in a closure e.g. counter and verify that it is indeed called that many times
-    describe('Give it some context', function() {
-        describe('maybe a bit more context here', function() {
-            it('should run here few assertions', function() {
-                console.log('in here');
+    describe('Code Wrapper', function() {
+        describe('function', function() {
+            it('should wrap code effectively', function() {
                 var code = 'function () { return 2; }',
-                        wrappedCode = '(' + code + ')()';
+                        arg = 2,
+                        wrappedCode = '(' + code + ')(' + arg + ')';
 
-                //assert.equal(wrappedCode, codeWrapper(code));
+                assert.equal(wrappedCode, codeWrapper(code, 2));
             });
         });
     });
