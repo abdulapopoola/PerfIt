@@ -20,6 +20,7 @@ var timeIt = function(codeToRun, maxRunValue, runIncrement) {
             runTime = 0,
             runCount = 10;
 
+    //TODO: Pull out runCount and runTime into constants
     while (runCount <= maxRunCount) {
         runTime = perfIt(codeToRun, runCount);
         results.push({
@@ -55,19 +56,36 @@ var plotIt = function(plotData) {
                 'fill': 'none'
             });
 
+    var maxX = d3.max(plotData, function(data) {
+        return data.runCount;
+    });
+    var maxY = d3.max(plotData, function(data) {
+        return data.runTime;
+    });
     //Create the Scale we will use for the Axis
-    var axisScale = d3.scale.linear()
-            .domain([0, 10000])
-            .range([0, 400]);
+    var xAxisScale = d3.scale.linear()
+            .domain([0, maxX])
+            .range([0, 100]);
+    var yAxisScale = d3.scale.linear()
+            .domain([0, maxY])
+            .range([0, 100]);
 
     //Create the Axis
     var xAxis = d3.svg.axis()
-            .scale(axisScale);
+            .scale(xAxisScale)
+            .orient('bottom')
+            .ticks(5);
 
+    var yAxis = d3.svg.axis()
+            .scale(yAxisScale);
 
     //Create an SVG group Element for the Axis elements and call the xAxis function
     var xAxisGroup = plotArea.append("g")
+            .attr("class", "axis")
             .call(xAxis);
+
+    //var yAxisGroup = plotArea.append("g")
+    //.call(yAxis);
 };
 
 var setupCodeMirror = function() {
@@ -87,7 +105,7 @@ var codeWrapper = function(code, args) {
     //wraps code in an IIFE
     return "(" + code + ")"
             + "(" + args + ")";
-}
+};
 
 window.onload = function() {
     var codebox = setupCodeMirror();

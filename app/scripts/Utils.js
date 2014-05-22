@@ -1,34 +1,29 @@
 'use strict';
-function Utils() {
-}
-;
 
-Utils.prototype.max = function(objList, comparisionField) {
-    var result = -Infinity,
-            maxSoFar = -Infinity;
+//TODO, wrap as constant in IIFE
+var Utils = {
+    maxValueForField: function(objList, fieldToCheck) {
+        var maxSoFar = -Infinity;
 
-    objList.forEach(function(obj, index, arr) {
-        var fieldValue = obj[comparisionField];
-        if (fieldValue > maxSoFar) {
-            maxSoFar = fieldValue;
-            result = obj;
-        }
-    });
+        objList.forEach(function(obj, index, arr) {
+            var fieldValue = obj[fieldToCheck];
+            if (fieldValue > maxSoFar) {
+                maxSoFar = fieldValue;
+            }
+        });
 
-    return result;
-};
+        return maxSoFar;
+    },
+    minValueForField: function(objList, fieldToCheck) {
+        var minSoFar = +Infinity;
 
-Utils.prototype.min = function(objList, comparisionField) {
-    var result = -Infinity,
-            minSoFar = +Infinity;
+        objList.forEach(function(obj, index, arr) {
+            var fieldValue = obj[fieldToCheck];
+            if (fieldValue < minSoFar) {
+                minSoFar = fieldValue;
+            }
+        });
 
-    objList.forEach(function(obj, index, arr) {
-        var fieldValue = obj[comparisionField];
-        if (fieldValue < minSoFar) {
-            minSoFar = fieldValue;
-            result = obj;
-        }
-    });
-
-    return result;
+        return minSoFar;
+    }
 };
