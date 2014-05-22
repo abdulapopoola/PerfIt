@@ -2,6 +2,7 @@
 function Utils() {
 }
 ;
+
 Utils.prototype.max = function(objList, comparisionField) {
     var result = -Infinity,
             maxSoFar = -Infinity;
